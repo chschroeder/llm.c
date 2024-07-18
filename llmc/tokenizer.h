@@ -55,18 +55,22 @@ void tokenizer_init(Tokenizer *tokenizer, const char *filename) {
     freadCheck(header, sizeof(uint32_t), 256, file);
     assert(header[0] == 20240328);
     int version = header[1];
-    tokenizer->vocab_size = header[2];
-    if (version == 1) {
-        // version 1 didn't include the EOT token id
-        // so we assume it is 50256, the EOT in GPT-2
-        assert(tokenizer->vocab_size == 50257); // let's be defensive here
-        tokenizer->eot_token = 50256;
-    } else if (version == 2) {
-        tokenizer->eot_token = header[3];
-    } else {
-        fprintf(stderr, "Tokenizer model file %s has bad version: %d\n", filename, version);
-        exit(EXIT_FAILURE);
-    }
+    
+    assert(version == 2);
+    tokenizer->vocab_size = 32768;
+    tokenizer->eot_token = 32767;    
+    // tokenizer->vocab_size = header[2];
+    // if (version == 1) {
+    //    // version 1 didn't include the EOT token id
+    //    // so we assume it is 50256, the EOT in GPT-2
+    //    assert(tokenizer->vocab_size == 50257); // let's be defensive here
+    //    tokenizer->eot_token = 50256;
+    // } else if (version == 2) {
+    //    tokenizer->eot_token = header[3];
+    // } else {
+    //    fprintf(stderr, "Tokenizer model file %s has bad version: %d\n", filename, version);
+    //    exit(EXIT_FAILURE);
+    // }
     // read in all the tokens
     unsigned char length;
     tokenizer->token_table = (char **)mallocCheck(tokenizer->vocab_size * sizeof(char *));
