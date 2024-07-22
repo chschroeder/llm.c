@@ -1496,7 +1496,7 @@ int main(int argc, char *argv[]) {
     // if we're only overfitting a single batch for debugging, let's overfit the first batch
     // from val instead of train split, because val is smaller and faster. (train_gpt2.py does the same)
     if (overfit_single_batch == 1) { train_data_pattern = val_data_pattern; }
-    printf0("+-----------------------+----------------------------------------------------+\n");
+    printf0("+##---------------------+----------------------------------------------------+\n");
     printf0("| Parameter             | Value                                              |\n");
     printf0("+-----------------------+----------------------------------------------------+\n");
     printf0("| train data pattern    | %-50s |\n", train_data_pattern);

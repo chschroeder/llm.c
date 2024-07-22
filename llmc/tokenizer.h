@@ -58,7 +58,7 @@ void tokenizer_init(Tokenizer *tokenizer, const char *filename) {
     
     assert(version == 2);
     tokenizer->vocab_size = 32768;
-    tokenizer->eot_token = 32767;    
+    tokenizer->eot_token = 0;    
     // tokenizer->vocab_size = header[2];
     // if (version == 1) {
     //    // version 1 didn't include the EOT token id
